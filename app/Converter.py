@@ -1,23 +1,23 @@
 import json
-import xml.etree.ElementTree as ET
+from xml.etree import ElementTree as elt
 
 
 class ConvertJson:
     def serialize(self, title: str, content: str) -> str:
         return json.dumps({"title": title, "content": content})
 
-    def __call__(self, *args, **kwargs):
+    def __call__(self, *args, **kwargs) -> str:
         return self.serialize(*args, **kwargs)
 
 
 class ConvertXml:
     def serialize(self, book_title: str, book_content: str) -> str:
-        root = ET.Element("book")
-        title = ET.SubElement(root, "title")
+        root = elt.Element("book")
+        title = elt.SubElement(root, "title")
         title.text = book_title
-        content = ET.SubElement(root, "content")
+        content = elt.SubElement(root, "content")
         content.text = book_content
-        return ET.tostring(root, encoding="unicode")
+        return elt.tostring(root, encoding="unicode")
 
-    def __call__(self, *args, **kwargs):
+    def __call__(self, *args, **kwargs) -> str:
         return self.serialize(*args, **kwargs)
